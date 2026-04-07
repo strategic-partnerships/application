@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elite B2B Sales Partnership - Application</title>
+    <link rel="icon" href="data:," />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700&display=swap");
+      body {
+        background-color: #050505;
+        color: #f3f4f6;
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      h1,
+      h2 {
+        font-family: "Orbitron", sans-serif;
+        color: #ffffff;
+        text-align: center;
+        margin-top: 0;
+      }
+      .description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #9ca3af;
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #1f2937;
+        padding-bottom: 20px;
+      }
+      .container {
+        background-color: #0a0a0a;
+        padding: 40px;
+        border-radius: 12px;
+        border: 1px solid #1f2937;
+        box-shadow: 0 8px 30px rgba(138, 43, 226, 0.15);
+        max-width: 650px;
+        width: 100%;
+        animation: fadeInUp 0.8s ease-out;
+      }
+      .form-group {
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+      .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .form-group:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .form-group:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #d1d5db;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px;
+        background-color: #111111;
+        border: 1px solid #374151;
+        color: #ffffff;
+        border-radius: 6px;
+        font-family: "Inter", sans-serif;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #4b5563;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #8a2be2;
+        box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+        transform: translateY(-2px);
+      }
+      .error-input {
+        border-color: #ef4444 !important;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+      }
+      button {
+        width: 100%;
+        padding: 16px;
+        background-color: #8a2be2;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.6s forwards;
+      }
+      button:hover {
+        background-color: #6b21a8;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+      }
+      button:disabled {
+        background-color: #4b5563;
+        cursor: wait;
+        transform: none;
+        box-shadow: none;
+        animation: pulse 1.5s infinite;
+      }
+      #confirmation {
+        display: none;
+        text-align: center;
+        animation: fadeIn 1s ease-out;
+      }
+      #confirmation p {
+        line-height: 1.8;
+        color: #d1d5db;
+      }
+      .signature {
+        margin-top: 30px;
+        font-family: "Orbitron", sans-serif;
+        color: #8a2be2;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      .sig-title {
+        display: block;
+        font-size: 13px;
+        color: #9ca3af;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+        letter-spacing: 0;
+        margin-top: 5px;
+      }
+      .st-cont {
+        margin-top: 8px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        height: 0;
+        overflow: hidden;
+      }
+      .st-cont.vis {
+        opacity: 1;
+        height: auto;
+        overflow: visible;
+        margin-top: 12px;
+      }
+      .st-bg {
+        width: 100%;
+        height: 4px;
+        background: #1f2937;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .st-bar {
+        height: 100%;
+        width: 0;
+        transition: all 0.4s ease;
+        background: #ef4444;
+      }
+      .st-info {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        margin-top: 6px;
+        font-weight: 600;
+      }
+      .hp-trap {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        opacity: 0;
+        z-index: -1;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes pulse {
+        0% {
+          opacity: 0.7;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.7;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="formContainer">
+        <h1>Elite B2B Sales Partnership</h1>
+        <p class="description">
+          We are a premium digital infrastructure and execution agency looking
+          to partner with top-tier B2B sales professionals. To protect our brand
+          equity and our current clients, we operate a strict vetting process.
+          Please complete this brief assessment. If your profile and strategy
+          align with our high standards, our Director of Strategic Partnerships
+          will contact you with the official agreements and our brand details.
+        </p>
+        <form id="applicationForm" novalidate>
+          <div class="form-group">
+            <label for="fullName">Full Name</label
+            ><input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="e.g. John Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Professional Email Address</label
+            ><input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="john@example.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="profileLink"
+              >Link to your professional profile (LinkedIn, X, or
+              Portfolio)</label
+            ><input
+              type="url"
+              id="profileLink"
+              name="profileLink"
+              placeholder="https://linkedin.com/in/yourprofile"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="experience"
+              >What is your experience level in B2B or High-Ticket Sales?</label
+            ><select id="experience" name="experience" required>
+              <option value="" disabled selected>
+                Select your experience level
+              </option>
+              <option value="Less than 1 year">Less than 1 year</option>
+              <option value="1 to 3 years">1 to 3 years</option>
+              <option value="3+ years (Elite)">3+ years (Elite)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pitch"
+              >Briefly: How would you approach pitching a $1,000+ digital
+              infrastructure solution to an agency owner who is facing scaling
+              bottlenecks?</label
+            ><textarea
+              id="pitch"
+              name="pitch"
+              rows="5"
+              placeholder="Outline your opening approach, value proposition, and closing strategy..."
+              required
+            ></textarea>
+            <div class="st-cont" id="stCont">
+              <div class="st-bg"><div class="st-bar" id="stBar"></div></div>
+              <div class="st-info">
+                <span id="stTxt" style="color: #ef4444">Too Short</span
+                ><span id="stCount" style="color: #9ca3af">0 Words</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hp-trap" aria-hidden="true">
+            <input
+              type="text"
+              id="botCheck"
+              name="company_website"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <button type="submit" id="submitBtn">Submit Application</button>
+        </form>
+      </div>
+      <div id="confirmation">
+        <h2>Application Received!</h2>
+        <p>
+          Our executive team will review your application and credentials. If
+          you are selected, you will receive an email within 24-48 hours
+          containing the agreements and our contract. Once signed, you will be
+          given access to the partner success group, our brand identity and your
+          partner dashboard.
+        </p>
+        <p class="signature">
+          Marcus Reed
+          <span class="sig-title">Director of Strategic Partnerships</span>
+        </p>
+      </div>
+    </div>
+    <script>
+      const encodedURL =
+        "aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J4SWxBdW1oY1JkXzFaeXVocTZLTGVkQ0l3R1hXdUdmSC1FQ1FpdU9HUXNab0JmS08wTlVLMDlUeWpLSFFmZlBEUTIzZy9leGVj";
+      const form = document.getElementById("applicationForm"),
+        fc = document.getElementById("formContainer"),
+        conf = document.getElementById("confirmation"),
+        btn = document.getElementById("submitBtn"),
+        pitch = document.getElementById("pitch"),
+        stCont = document.getElementById("stCont"),
+        stBar = document.getElementById("stBar"),
+        stTxt = document.getElementById("stTxt"),
+        stCount = document.getElementById("stCount"),
+        inputs = form.querySelectorAll("[required]");
+      const MIN_W = 30;
+
+      pitch.addEventListener("input", () => {
+        let w = pitch.value
+          .trim()
+          .split(/\s+/)
+          .filter((x) => x.length > 0).length;
+        if (w > 0) stCont.classList.add("vis");
+        else stCont.classList.remove("vis");
+        stCount.textContent = w + " Words";
+        let p = Math.min((w / 60) * 100, 100);
+        stBar.style.width = p + "%";
+        if (w < MIN_W) {
+          stBar.style.background = "#ef4444";
+          stTxt.textContent = `Too Short (Min ${MIN_W} words)`;
+          stTxt.style.color = "#ef4444";
+          pitch.setCustomValidity("Too short");
+        } else if (w < 50) {
+          stBar.style.background = "#eab308";
+          stTxt.textContent = "Good Pitch";
+          stTxt.style.color = "#eab308";
+          pitch.setCustomValidity("");
+        } else {
+          stBar.style.background = "#8a2be2";
+          stTxt.textContent = "Elite Pitch";
+          stTxt.style.color = "#8a2be2";
+          pitch.setCustomValidity("");
+        }
+        pitch.classList.remove("error-input");
+      });
+      inputs.forEach((i) =>
+        i.addEventListener("input", () => i.classList.remove("error-input")),
+      );
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let botFieldValue = document.getElementById("botCheck").value;
+        if (botFieldValue !== "") {
+          fc.style.display = "none";
+          conf.style.display = "block";
+          return;
+        }
+
+        let v = true;
+        inputs.forEach((i) => {
+          if (!i.checkValidity()) {
+            i.classList.add("error-input");
+            v = false;
+          }
+        });
+        if (!v) {
+          pitch.focus();
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = "Processing...";
+        fetch(atob(encodedURL), { method: "POST", body: new FormData(form) })
+          .then(() => {
+            fc.style.display = "none";
+            conf.style.display = "block";
+          })
+          .catch(() => {
+            alert("Connection error. Please try again.");
+            btn.disabled = false;
+            btn.textContent = "Submit Application";
+          });
+      });
+    </script>
+  </body>
+</html>
